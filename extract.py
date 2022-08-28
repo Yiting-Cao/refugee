@@ -1,7 +1,6 @@
 import tweepy
 import re
 
-import json
 from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 \
@@ -31,7 +30,7 @@ api = tweepy.API(auth)
 username_tweets = tweepy.Cursor(api.search_tweets, 
                                 q="ukraine crime -filter:retweets since:2022-07-14", 
                                 lang="en", 
-                                tweet_mode='extended').items(10)
+                                tweet_mode='extended').items(1)
 
 # for tweet in username_tweets:
 #     text = tweet._json["full_text"]
