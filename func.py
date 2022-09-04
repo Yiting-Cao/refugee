@@ -37,6 +37,11 @@ def get_dates(d):
         next_date = next_date + tz
     return dates, next_dates
 
+# d = datetime.date(2022, 5, 5)
+# dates, next_dates = get_dates(d)
+# print(dates)
+# print(next_dates)
+
 def get_next_day(d):
     import datetime
     new_d = d + datetime.timedelta(days=1)
@@ -53,6 +58,11 @@ def get_next_day(d):
 def create_idx_dir(parent_dir, indexes):
     for idx in indexes:
         path = parent_dir + idx
+        os.mkdir(path)
+
+def create_country_dir(parent_dir, countries, date):
+    for country in countries:
+        path = parent_dir + country + date
         os.mkdir(path)
 
 def get_tweets(country, idx, date, next_date):
@@ -87,4 +97,47 @@ def nlu(tweet, idx, natural_language_understanding):
     except Exception:
         pass
 
-# r = nlu('')
+
+def turn_file_into_list(in_file):
+    import random
+    l = []
+    with open(in_file, 'r') as infile:
+        contents = [line for line in infile.readlines()]
+        for content in contents:
+            new_content = content.strip()
+            new_content = float(new_content)
+            l.append(new_content)
+        infile.close()
+    l = [x for x in l if x !=0]
+    ll = len(l)
+    if ll == 0:
+        l = [0.0 for x in range(10)]
+    elif ll < 10:
+        s = sum(l)
+        for _ in range(10-ll):
+            n = round(s/ll + random.uniform(-0.1, 0.1), 6)
+            while n <= -1 or n >= 1:
+                n = round(s/ll + random.uniform(-0.1, 0.1), 6)
+            l.append(n)
+    return l
+
+def turn_file_into_number(in_file):
+    import random
+    l = []
+    with open(in_file, 'r') as infile:
+        contents = [line for line in infile.readlines()]
+        for content in contents:
+            new_content = content.strip()
+            new_content = float(new_content)
+            l.append(new_content)
+        infile.close()
+    l = [x for x in l if x !=0]
+    ll = len(l)
+    if ll == 0:
+        n = 0.0
+    else:
+        n = round(sum(l)/ll, 6)
+    return n
+
+# res = turn_file_into_list('tweets/ukraine/crime/2022-05-02.txt')
+# print(res)

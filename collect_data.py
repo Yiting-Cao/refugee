@@ -21,21 +21,22 @@ client = tweepy.Client(const.bearer_token)
 
 indexes = ['crime', 'gdp', 'employment', 'corruption', 'inequality', 'law', 'right', 'security', 'conflict', 'health']
 
-d = datetime.date(2022, 5, 1)
-next_monday = func.get_next_monday(d)
-dates, next_dates = func.get_dates(next_monday)
+d = datetime.date(2022, 2, 21) # change date here
+# next_monday = func.get_next_monday(d)
+dates, next_dates = func.get_dates(d)
 
-func.create_idx_dir('tweets/ukraine/', indexes)
+home = 'tweets/uk20220221/' # change date here
+func.create_idx_dir(home, indexes)
 
 for idx in indexes:
     for i in range(10):
         f_date = dates[i] + 'T00:00:00.00Z'
         f_next_date = next_dates[i] + 'T00:00:00.00Z'
-        tweets = func.get_tweets('ukraine', idx, f_date, f_next_date)
+        tweets = func.get_tweets('uk', idx, f_date, f_next_date) # change data here
         if not tweets:
             print('There is not tweets about ' + idx + ' on ' + dates[i])
             continue
-        address = 'tweets/ukraine/' + idx + '/' + dates[i] + '.txt'
+        address = home + idx + '/' + dates[i] + '.txt'
         file = open(address, "w")
         for tweet in tweets.data:
             tweet = str(tweet)

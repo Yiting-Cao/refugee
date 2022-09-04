@@ -1,20 +1,42 @@
 import os
+import func
 
 indexes = ['crime', 'gdp', 'employment', 'corruption', 'inequality', 'law', 'right', 'security', 'conflict', 'health']
 
-in_parent = 'tweets/ukraine/'
-out_parent = 'data/ukraine/'
+countries = ['uk', 'france', 'germany', 'us', 'japan', 'afghanistan']
+# countries = ['sudan']
 
-for index in indexes:
-    in_path = in_parent + index
-    files = os.listdir(in_path)
-    out_file = out_parent + index + '.txt'
+date = '20210104' # change date here
+
+for country in countries:
+    in_parent = 'tweets/' + country + date + '/'
+    out_parent = 'data/' + country + date
+
+    # for index in indexes:
+    #     in_path = in_parent + index
+    #     files = os.listdir(in_path)
+    #     out_file = out_parent + index + '.txt'
+    #     with open(out_file, 'w') as outfile:
+    #         for file in files:
+    #             in_file = in_parent + index + '/' + file
+    #             # print(in_file)
+    #             l = func.turn_file_into_list(in_file)
+    #             outfile.write(str(l))
+    #         outfile.close()
+
+    out_file = out_parent + '.txt'
     with open(out_file, 'w') as outfile:
-        for file in files:
-            in_file = in_parent + index + '/' + file
-            # print(in_file)
-            with open(in_file) as infile:
-                outfile.write(infile.read())
-                infile.close()
+        for index in indexes:
+            in_path = in_parent + index
+            files = os.listdir(in_path)
+            for file in files:
+                in_file = in_parent + index + '/' + file
+                # print(in_file)
+                try:
+                    l = func.turn_file_into_number(in_file)
+                    outfile.write(str(l))
+                    outfile.write(', ')
+                except UnicodeDecodeError:
+                    pass
+            outfile.write('\n')
         outfile.close()
-    break
