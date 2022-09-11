@@ -3,14 +3,14 @@ import func
 
 indexes = ['crime', 'gdp', 'employment', 'corruption', 'inequality', 'law', 'right', 'security', 'conflict', 'health']
 
-countries = ['uk', 'france', 'germany', 'us', 'japan', 'afghanistan']
+countries = ['uk', 'france', 'germany', 'us', 'afghanistan']
 # countries = ['sudan']
 
-date = '20210104' # change date here
+date = '20210315' # change date here
 
 for country in countries:
     in_parent = 'tweets/' + country + date + '/'
-    out_parent = 'data/' + country + date
+    out_parent = 'rawdata/' + country + date
 
     # for index in indexes:
     #     in_path = in_parent + index
